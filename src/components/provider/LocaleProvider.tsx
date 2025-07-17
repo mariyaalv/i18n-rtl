@@ -1,8 +1,9 @@
 import translations from "@root/translations.json";
-import { type FC, type ReactNode, useMemo } from "react";
+import { type FC, type ReactNode, useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { useLocation } from "react-router-dom";
 
+import { LANG_DIRECTION } from "@/constants";
 import { detectUserLanguage } from "@/lib";
 import type { Lang, Locale } from "@/types";
 
@@ -19,6 +20,10 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
 }) => {
     const { pathname } = useLocation();
     const lang = detectUserLanguage(pathname) || initialLocale;
+
+    useEffect(() => {
+      document.documentElement.dir = LANG_DIRECTION[lang] || "ltr";
+    }, [lang]);
 
     const messages = useMemo(() => {
         return Object.entries(translations).reduce(

@@ -4,6 +4,7 @@ import { type FC } from "react";
 import { useIntl } from "react-intl";
 
 import { Layout } from "@/components";
+import { LANG_DIRECTION } from "@/constants";
 import {
     ClockIcon,
     GamepadIcon,
@@ -17,6 +18,8 @@ import styles from "./styles.module.css";
 
 export const ArticleRtlIcons: FC = () => {
     const intl = useIntl();
+    const isRtl = LANG_DIRECTION[intl.locale as keyof typeof LANG_DIRECTION] === "rtl";
+
     return (
         <Layout>
             <main className={styles.article}>
@@ -30,18 +33,30 @@ export const ArticleRtlIcons: FC = () => {
                     <h2>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.title", defaultMessage: messagesJson["articleRtlIcons.flipIcons.title"].en })}</h2>
                     <p>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.text", defaultMessage: messagesJson["articleRtlIcons.flipIcons.text"].en })}</p>
                     <div className={cn(styles.icons)} data-testid="rtl-icons">
+                      <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
                         <PaperNoteIcon />
+                      </span>
+                      <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
                         <MessageIcon />
+                      </span>
+                      <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
                         <WindowIcon />
+                      </span>
                     </div>
                 </section>
                 <section className={styles.section}>
                     <h2>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.title", defaultMessage: messagesJson["articleRtlIcons.dontFlipIcons.title"].en })}</h2>
                     <p>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.text", defaultMessage: messagesJson["articleRtlIcons.dontFlipIcons.text"].en })}</p>
                     <div className={cn(styles.icons)} data-testid="not-rtl-icons">
-                        <GamepadIcon />
-                        <MagnifierIcon />
-                        <ClockIcon />
+                        <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
+                            <GamepadIcon />
+                        </span>
+                        <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
+                            <MagnifierIcon />
+                        </span>
+                        <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
+                            <ClockIcon />
+                        </span>
                     </div>
                 </section>
                 <section className={styles.section}>
