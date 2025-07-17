@@ -1,6 +1,6 @@
 import messagesJson from "@root/translations.json";
 import { type FC } from "react";
-import { useIntl } from "react-intl";
+import { FormattedDate, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 import articleAr from "@/assets/article-ar.jpg";
@@ -92,7 +92,12 @@ export const Home: FC = () => {
                             {intl.formatMessage({ id: "homePage.hero.conference", defaultMessage: messagesJson["homePage.hero.conference"].en }, { year })}
                         </span>
                         <span className={styles.heroDetailsItem}>
-                            15 августа 2025 г.
+                          <FormattedDate
+                            value={new Date(2025, 7, 15)}
+                            day="numeric"
+                            month="long"
+                            year="numeric"
+                          />
                         </span>
                         <span className={styles.heroDetailsItem}>
                             {intl.formatMessage({ id: "homePage.hero.location", defaultMessage: messagesJson["homePage.hero.location"].en })}
