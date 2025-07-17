@@ -1,9 +1,7 @@
 import { type FC, useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 
 import { LocaleProviderWrapper } from "@/components/provider/LocaleProviderWrapper";
-import { DEFAULT_LOCALE } from "@/constants";
-import { detectUserLanguage } from "@/lib";
 
 import {
     ArticleAr, ArticleCss, ArticleEn, ArticleI18nKz, ArticleL10nRu,
@@ -17,16 +15,12 @@ const ScrollToTop: FC = () => {
 };
 
 function App() {
-    const targetLocale = detectUserLanguage(window.location.pathname);
     return (
         <BrowserRouter>
             <LocaleProviderWrapper>
                 <ScrollToTop />
                 <Routes>
-                    <Route
-                        path="/"
-                        element={<Navigate to={`/${targetLocale}/`} replace />}
-                    />
+                    <Route path="/" element={<div />} />
                     <Route path=":locale">
                         <Route index element={<Home />} />
                         <Route path="article/rtl-icons" element={<ArticleRtlIcons />} />
@@ -37,10 +31,6 @@ function App() {
                         <Route path="article/en" element={<ArticleEn />} />
                         <Route path="article/ar" element={<ArticleAr />} />
                     </Route>
-                    <Route
-                        path="*"
-                        element={<Navigate to={`/${DEFAULT_LOCALE}/`} replace />}
-                    />
                 </Routes>
             </LocaleProviderWrapper>
         </BrowserRouter>

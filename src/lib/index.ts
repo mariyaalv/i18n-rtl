@@ -1,3 +1,9 @@
 export { geoService } from "./geo-service";
-export { detectUserLanguage } from "./locale";
+export {
+    constructLocale,
+    detectUserLanguage,
+    getLocaleFromCookie,
+    getOptimalLocale,
+    setLocaleCookie,
+} from "./locale";
 export { pickMessages } from "./pickMessages";
