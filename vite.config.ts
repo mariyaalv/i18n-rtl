@@ -13,7 +13,13 @@ export default defineConfig({
         ],
     },
     plugins: [
-        react(),
+        react({
+            babel: {
+                plugins: [
+                    ["formatjs", { "removeDefaultMessage": true, "ast": true }]
+                ]
+            }
+        }),
         svgr({
             include: "**/*.svg",
         }),

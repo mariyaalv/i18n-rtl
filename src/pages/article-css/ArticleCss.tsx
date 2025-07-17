@@ -16,7 +16,8 @@ export const ArticleCss: FC = () => {
                 <section className={styles.section}>
                     <h2>{intl.formatMessage({ id: "articleCss.whyImportant.title" })}</h2>
                     <p>{intl.formatMessage({ id: "articleCss.whyImportant.text" })}</p>
-                    <div dangerouslySetInnerHTML={{ __html: intl.formatMessage({ id: "articleCss.whyImportant.list" }) }} />
+                    <p>{intl.formatMessage({ id: "articleCss.whyImportant.listText" })}</p>
+                    <div className={styles.list} dangerouslySetInnerHTML={{ __html: intl.formatMessage({ id: "articleCss.whyImportant.listContent" }) }} />
                 </section>
                 <section className={styles.section}>
                     <h2>{intl.formatMessage({ id: "articleCss.conclusion.title" })}</h2>

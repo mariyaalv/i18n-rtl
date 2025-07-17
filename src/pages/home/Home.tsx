@@ -87,7 +87,7 @@ const formatPrice = (amount: number, locale: string) => {
 export const Home: FC = () => {
     const intl = useIntl();
     const currentLocale = intl.locale as Locale;
-    const { titleId, descriptionId, imageUrl, articleLink } = getRegionArticleByLocale(currentLocale);
+    const { imageUrl, articleLink } = getRegionArticleByLocale(currentLocale);
     const year = "2025";
     const price = formatPrice(35000, currentLocale);
     const articlesCount = ARTICLES.length;
@@ -135,10 +135,32 @@ export const Home: FC = () => {
 
                     <Link className={styles.articleCard} to={articleLink}>
                         <div className={styles.cardContent}>
-                            <h3 className={styles.cardTitle}>{intl.formatMessage({ id: titleId })}</h3>
-                            <p className={styles.cardDescription}>
-                                {intl.formatMessage({ id: descriptionId })}
-                            </p>
+                            {((currentLocale === "ru" || currentLocale === "ru-RU") && (
+                                <>
+                                    <h3 className={styles.cardTitle}>{intl.formatMessage({ id: "homePage.ruArticle.title" })}</h3>
+                                    <p className={styles.cardDescription}>{intl.formatMessage({ id: "homePage.ruArticle.description" })}</p>
+                                </>
+                            )) || (currentLocale === "ru-BY" && (
+                                <>
+                                    <h3 className={styles.cardTitle}>{intl.formatMessage({ id: "homePage.byArticle.title" })}</h3>
+                                    <p className={styles.cardDescription}>{intl.formatMessage({ id: "homePage.byArticle.description" })}</p>
+                                </>
+                            )) || (currentLocale === "ru-KZ" && (
+                                <>
+                                    <h3 className={styles.cardTitle}>{intl.formatMessage({ id: "homePage.kzArticle.title" })}</h3>
+                                    <p className={styles.cardDescription}>{intl.formatMessage({ id: "homePage.kzArticle.description" })}</p>
+                                </>
+                            )) || (currentLocale === "ar" && (
+                                <>
+                                    <h3 className={styles.cardTitle}>{intl.formatMessage({ id: "homePage.arArticle.title" })}</h3>
+                                    <p className={styles.cardDescription}>{intl.formatMessage({ id: "homePage.arArticle.description" })}</p>
+                                </>
+                            )) || (
+                                <>
+                                    <h3 className={styles.cardTitle}>{intl.formatMessage({ id: "homePage.enArticle.title" })}</h3>
+                                    <p className={styles.cardDescription}>{intl.formatMessage({ id: "homePage.enArticle.description" })}</p>
+                                </>
+                            )}
                             <span className={styles.cardRead}>
                                 {intl.formatMessage({ id: "homePage.article.read" })}
                             </span>
@@ -169,10 +191,12 @@ export const Home: FC = () => {
                                 >
                                     <div className={styles.cardContent}>
                                         <h3 className={styles.cardTitle}>
-                                            {intl.formatMessage({ id: titleId })}
+                                            {titleId === "homePage.rtlArticle.title" && intl.formatMessage({ id: "homePage.rtlArticle.title" })}
+                                            {titleId === "homePage.cssArticle.title" && intl.formatMessage({ id: "homePage.cssArticle.title" })}
                                         </h3>
                                         <p className={styles.cardDescription}>
-                                            {intl.formatMessage({ id: descriptionId })}
+                                            {descriptionId === "homePage.rtlArticle.description" && intl.formatMessage({ id: "homePage.rtlArticle.description" })}
+                                            {descriptionId === "homePage.cssArticle.description" && intl.formatMessage({ id: "homePage.cssArticle.description" })}
                                         </p>
                                         <span className={styles.cardRead}>
                                             {intl.formatMessage({ id: "homePage.article.read" })}

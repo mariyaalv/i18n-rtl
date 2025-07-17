@@ -39,10 +39,15 @@
         "en": "Using logical properties makes the code more adaptive and reduces the need for conditional styles or CSS duplication. It also simplifies maintenance, especially in multilingual products where switching between LTR and RTL should be as seamless as possible.",
         "ru": "Использование логических свойств делает код более адаптивным и уменьшает потребность в условных стилях или дублировании CSS. Это также упрощает поддержку, особенно в многоязычных продуктах, где переключение между LTR и RTL должно быть максимально бесшовным."
     },
-    "articleCss.whyImportant.list": {
-        "ar": "فيما يلي بعض فوائد الخصائص المنطقية في سياق العولمة: <ul><li>الشمولية: مجموعة واحدة من الأنماط تناسب جميع اتجاهات الكتابة.</li><li>صيانة أسهل: كود أقل، أخطاء أقل عند إجراء التغييرات.</li><li>المرونة: من السهل إضافة لغات جديدة دون تغيير بنية النمط.</li><li>الاتساق: نفس السلوك البصري لجميع المستخدمين، بغض النظر عن اللغة.</li><li>الأهمية: الامتثال لمعايير CSS الحديثة وأفضل ممارسات تصميم واجهة المستخدم.</li></ul>",
-        "en": "Here are some benefits of logical properties in the context of internationalization: <ul><li>Universality: one set of styles fits all writing directions.</li><li>Easier maintenance: less code, fewer errors when making changes.</li><li>Flexibility: easy to add new languages without changing the style structure.</li><li>Consistency: the same visual behavior for all users, regardless of language.</li><li>Relevance: compliance with modern CSS standards and UI design best practices.</li></ul>",
-        "ru": "Вот несколько преимуществ, которые дают логические свойства в контексте интернационализации: <ul><li>Универсальность: один набор стилей подходит для всех направлений письма.</li><li>Простота поддержки: меньше кода, меньше ошибок при внесении изменений.</li><li>Гибкость: легко добавлять новые языки, не меняя структуру стилей.</li><li>Последовательность: одинаковое визуальное поведение для всех пользователей, независимо от языка.</li><li>Актуальность: соответствие современным стандартам CSS и лучшим практикам UI-дизайна.</li></ul>"
+    "articleCss.whyImportant.listText": {
+        "ar": "فيما يلي بعض فوائد الخصائص المنطقية في سياق العولمة:",
+        "en": "Here are some benefits of logical properties in the context of internationalization:",
+        "ru": "Вот несколько преимуществ, которые дают логические свойства в контексте интернационализации:"
+    },
+    "articleCss.whyImportant.listContent": {
+        "ar": "<ul><li>الشمولية: مجموعة واحدة من الأنماط تناسب جميع اتجاهات الكتابة.</li><li>صيانة أسهل: كود أقل، أخطاء أقل عند إجراء التغييرات.</li><li>المرونة: من السهل إضافة لغات جديدة دون تغيير بنية النمط.</li><li>الاتساق: نفس السلوك البصري لجميع المستخدمين، بغض النظر عن اللغة.</li><li>الأهمية: الامتثال لمعايير CSS الحديثة وأفضل ممارسات تصميم واجهة المستخدم.</li></ul>",
+        "en": "<ul><li>Universality: one set of styles fits all writing directions.</li><li>Easier maintenance: less code, fewer errors when making changes.</li><li>Flexibility: easy to add new languages without changing the style structure.</li><li>Consistency: the same visual behavior for all users, regardless of language.</li><li>Relevance: compliance with modern CSS standards and UI design best practices.</li></ul>",
+        "ru": "<ul><li>Универсальность: один набор стилей подходит для всех направлений письма.</li><li>Простота поддержки: меньше кода, меньше ошибок при внесении изменений.</li><li>Гибкость: легко добавлять новые языки, не меняя структуру стилей.</li><li>Последовательность: одинаковое визуальное поведение для всех пользователей, независимо от языка.</li><li>Актуальность: соответствие современным стандартам CSS и лучшим практикам UI-дизайна.</li></ul>"
     },
     "articleCss.conclusion.title": {
         "ar": "الختام",
