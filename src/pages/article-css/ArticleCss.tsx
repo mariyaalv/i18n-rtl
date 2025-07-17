@@ -1,5 +1,5 @@
 import { type FC } from "react";
-import { useIntl } from "react-intl";
+import { FormattedMessage,useIntl } from "react-intl";
 
 import { Layout } from "@/components";
 
@@ -12,7 +12,14 @@ export const ArticleCss: FC = () => {
             <main className={styles.article}>
                 <h1>{intl.formatMessage({ id: "articleCss.title" })}</h1>
                 <p>{intl.formatMessage({ id: "articleCss.intro" })}</p>
-                <p>{intl.formatMessage({ id: "articleCss.diff" })}</p>
+                <p>
+                    <FormattedMessage
+                        id="articleCss.diff"
+                        values={{
+                            code: (chunks: React.ReactNode) => <code>{chunks}</code>
+                        }}
+                    />
+                </p>
                 <section className={styles.section}>
                     <h2>{intl.formatMessage({ id: "articleCss.whyImportant.title" })}</h2>
                     <p>{intl.formatMessage({ id: "articleCss.whyImportant.text" })}</p>
