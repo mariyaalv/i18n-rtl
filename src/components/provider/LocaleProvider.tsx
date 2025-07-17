@@ -3,7 +3,7 @@ import { type FC, type ReactNode, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { useLocation } from "react-router-dom";
 
-import { getLocaleFromPathname } from "@/lib";
+import { detectUserLanguage } from "@/lib";
 import type { Lang, Locale } from "@/types";
 
 interface LocaleProviderProps {
@@ -18,7 +18,7 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
     defaultLocale,
 }) => {
     const { pathname } = useLocation();
-    const locale = getLocaleFromPathname(pathname) || initialLocale;
+    const lang = detectUserLanguage(pathname) || initialLocale;
 
     const messages = useMemo(() => {
         return Object.entries(translations).reduce(
@@ -29,7 +29,7 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
 
     return (
         <IntlProvider
-            locale={locale}
+            locale={lang}
             messages={messages}
             defaultLocale={defaultLocale}
         >

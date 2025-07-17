@@ -1,8 +1,10 @@
+import Cookies from "js-cookie";
 import { type FC, useCallback, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-import { SUPPORTED_LANGS } from "@/constants";
+import { LANG_COOKIE_NAME, SUPPORTED_LANGS } from "@/constants";
 import { DoneIcon, EarthIcon } from "@/icons";
+import { detectUserLanguage, geoService } from "@/lib";
 import type { Lang } from "@/types";
 
 import { useClickOutside } from "./hooks";
@@ -16,10 +18,20 @@ const LANG_LABEL: Record<Lang, string> = {
 
 export const LangSelect: FC = () => {
     const [showMenu, setShowMenu] = useState(false);
+    const { pathname, search } = useLocation();
+    const selectedLang = detectUserLanguage(pathname);
 
     const handleMenuClose = useCallback(() => {
         setShowMenu(false);
     }, []);
+
+    const handleLanguageSelect = useCallback(
+        (lang: Lang) => {
+            Cookies.set(LANG_COOKIE_NAME, lang);
+            handleMenuClose();
+        },
+        [handleMenuClose]
+    );
 
     const handleMenuToggle = useCallback(() => {
         setShowMenu((prevShowMenu) => !prevShowMenu);
@@ -27,7 +39,21 @@ export const LangSelect: FC = () => {
 
     const langSelectRef = useClickOutside<HTMLDivElement>(handleMenuClose);
 
-    const selectedLang = "ru" as Lang;
+    const getLanguageUrl = useCallback(
+        (lang: Lang) => {
+            let locale: string;
+            if (lang === "ru") {
+                const region = geoService.getCurrentRegion(search) || "RU";
+                locale = region ? `${lang}-${region}` : lang;
+            } else {
+                locale = lang;
+            }
+            const pathWithoutLocale =
+                pathname.replace(/^\/[a-z]{2}(?:-[A-Z]{2})?/, "") || "/";
+            return `/${locale}${pathWithoutLocale}${search}`;
+        },
+        [pathname, search]
+    );
 
     return (
         <div className={styles.langSelect} ref={langSelectRef}>
@@ -50,13 +76,14 @@ export const LangSelect: FC = () => {
                 >
                     {SUPPORTED_LANGS.map((lang) => {
                         const langName = LANG_LABEL[lang];
+                        const langUrl = getLanguageUrl(lang);
 
                         return (
-                            <Link to="">
+                            <Link to={langUrl}>
                                 <li
                                     className={styles.langSelectMenuItem}
                                     key={lang}
-                                    onClick={handleMenuClose}
+                                    onClick={() => handleLanguageSelect(lang)}
                                 >
                                     <span
                                         className={

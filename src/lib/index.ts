@@ -1,2 +1,2 @@
 export { geoService } from "./geo-service";
-export { getLocaleFromPathname } from "./locale";
+export { detectUserLanguage } from "./locale";

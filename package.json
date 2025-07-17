@@ -9,7 +9,8 @@
         "preview": "vite preview --host 127.0.0.1 --port 3000",
         "lint": "eslint .",
         "stylelint": "stylelint \"**/*.css\"",
-        "prettier": "prettier . --write"
+        "prettier": "prettier . --write",
+        "zip": "zip -r project.zip . -x 'node_modules/*' '.git/*' '.gitignore' '.gitattributes' '.gitmodules' 'project.zip'"
     },
     "dependencies": {
         "@tanstack/react-query": "^5.81.2",
