@@ -32,32 +32,26 @@ export const ArticleRtlIcons: FC = () => {
                     <h2>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.title" })}</h2>
                     <p>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.text" })}</p>
                 <div className={cn(styles.icons)} data-testid="rtl-icons">
-                      <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
-                    <PaperNoteIcon />
-                      </span>
-                      <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
-                    <MessageIcon />
-                      </span>
-                      <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
-                    <WindowIcon />
-                      </span>
+                    <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
+                        <PaperNoteIcon />
+                    </span>
+                    <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
+                        <MessageIcon />
+                    </span>
+                    <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
+                        <WindowIcon />
+                    </span>
                 </div>
             </section>
             <section className={styles.section}>
                     <h2>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.title" })}</h2>
                     <p>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.text" })}</p>
                     <div className={cn(styles.icons)} data-testid="not-rtl-icons">
-                        <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
-                    <GamepadIcon />
-                        </span>
-                        <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
-                    <MagnifierIcon />
-                        </span>
-                        <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
-                    <ClockIcon />
-                        </span>
-                </div>
-            </section>
+                      <GamepadIcon />
+                      <MagnifierIcon />
+                      <ClockIcon />
+                    </div>
+                </section>
             <section className={styles.section}>
                     <h2>{intl.formatMessage({ id: "articleRtlIcons.conclusion.title" })}</h2>
                     <p>{intl.formatMessage({ id: "articleRtlIcons.conclusion.text1" })}</p>
