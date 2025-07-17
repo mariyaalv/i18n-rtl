@@ -1,4 +1,3 @@
-import messagesJson from "@root/translations.json";
 import { type FC } from "react";
 import { useIntl } from "react-intl";
 
@@ -11,8 +10,8 @@ export const ArticleUiBy: FC = () => {
     return (
         <Layout>
             <main className={styles.article}>
-                <h1>{intl.formatMessage({ id: "articleUiBy.title", defaultMessage: messagesJson["articleUiBy.title"].en })}</h1>
-                <p>{intl.formatMessage({ id: "articleUiBy.text", defaultMessage: messagesJson["articleUiBy.text"].en })}</p>
+                <h1>{intl.formatMessage({ id: "articleUiBy.title" })}</h1>
+                <p>{intl.formatMessage({ id: "articleUiBy.text" })}</p>
             </main>
         </Layout>
     );

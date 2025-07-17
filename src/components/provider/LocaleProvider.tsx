@@ -1,22 +1,26 @@
-import translations from "@root/translations.json";
 import { type FC, type ReactNode, useEffect, useMemo } from "react";
 import { IntlProvider } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { LANG_DIRECTION } from "@/constants";
-import { detectUserLanguage } from "@/lib";
+import { detectUserLanguage, pickMessages } from "@/lib";
+import type { TranslationKey } from "@/page-translation-keys";
 import type { Lang, Locale } from "@/types";
+
+import { Loader } from "../loader";
 
 interface LocaleProviderProps {
     children: ReactNode;
     initialLocale: Lang;
     defaultLocale?: Locale;
+    translationKeys: TranslationKey[]; 
 }
 
 export const LocaleProvider: FC<LocaleProviderProps> = ({
     children,
     initialLocale,
     defaultLocale,
+    translationKeys,
 }) => {
     const { pathname } = useLocation();
     const lang = detectUserLanguage(pathname) || initialLocale;
@@ -26,14 +30,17 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
     }, [lang]);
 
     const messages = useMemo(() => {
-        return Object.entries(translations).reduce(
-            (acc, [key, value]) => ({
-                ...acc,
-                [key]: value[lang] || value["en"]
-            }),
-            {} as Record<string, string>
-        );
-    }, [lang]);
+      return pickMessages(translationKeys, lang);
+    }, [lang, translationKeys]);
+
+    const isLoaded = translationKeys.every(key => messages[key]);
+
+    if (!isLoaded) {
+      return <Loader />;
+    }
+
+     console.log('LocaleProvider:', { lang, translationKeys, messages });
+
 
     return (
         <IntlProvider

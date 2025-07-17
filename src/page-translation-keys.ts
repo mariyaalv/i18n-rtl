@@ -70,3 +70,13 @@ export const PAGE_TRANSLATION_KEYS = {
         "articleRtlIcons.conclusion.text2",
     ],
 };
+
+export type TranslationKey = 
+  | typeof PAGE_TRANSLATION_KEYS.homePage[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleAr[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleCss[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleEn[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleI18nKz[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleL10nRu[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleRtlIcons[number]
+  | typeof PAGE_TRANSLATION_KEYS.articleUiBy[number];

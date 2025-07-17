@@ -1,4 +1,3 @@
-import messagesJson from "@root/translations.json";
 import { type FC } from "react";
 import { FormattedDate, useIntl } from "react-intl";
 import { Link } from "react-router-dom";
@@ -87,9 +86,11 @@ const formatPrice = (amount: number, locale: string) => {
 
 export const Home: FC = () => {
     const intl = useIntl();
-    const { titleId, descriptionId, imageUrl, articleLink } = getRegionArticleByLocale("ru");
+   console.log('Home locale:', intl.locale);
+   console.log('Home messages:', intl.messages);
+    const currentLocale = intl.locale as Locale;
+    const { titleId, descriptionId, imageUrl, articleLink } = getRegionArticleByLocale(currentLocale);
     const year = "2025";
-    const currentLocale = intl.locale;
     const price = formatPrice(35000, currentLocale);
     const articlesCount = ARTICLES.length;
 
@@ -98,12 +99,12 @@ export const Home: FC = () => {
             <main className={styles.content}>
                 <section className={styles.hero}>
                     <h1 className={styles.heroTitle}>
-                        {intl.formatMessage({ id: "homePage.hero.title", defaultMessage: messagesJson["homePage.hero.title"].en })}
+                        {intl.formatMessage({ id: "homePage.hero.title" })}
                     </h1>
 
                     <div className={styles.heroDetails}>
                         <span className={styles.heroDetailsItem}>
-                            {intl.formatMessage({ id: "homePage.hero.conference", defaultMessage: messagesJson["homePage.hero.conference"].en }, { year })}
+                            {intl.formatMessage({ id: "homePage.hero.conference" }, { year })}
                         </span>
                         <span className={styles.heroDetailsItem}>
                           <FormattedDate
@@ -114,34 +115,34 @@ export const Home: FC = () => {
                           />
                         </span>
                         <span className={styles.heroDetailsItem}>
-                            {intl.formatMessage({ id: "homePage.hero.location", defaultMessage: messagesJson["homePage.hero.location"].en })}
+                            {intl.formatMessage({ id: "homePage.hero.location" })}
                         </span>
                         <span className={styles.heroDetailsItem}>
                           {intl.formatMessage(
-                            { id: "homePage.hero.price", defaultMessage: messagesJson["homePage.hero.price"].en },
+                            { id: "homePage.hero.price" },
                             { price }
                             )}
                         </span>
                     </div>
 
                     <a className={styles.heroRegister} href="">
-                        {intl.formatMessage({ id: "homePage.hero.register", defaultMessage: messagesJson["homePage.hero.register"].en })}
+                        {intl.formatMessage({ id: "homePage.hero.register" })}
                     </a>
                 </section>
 
                 <section className={styles.regionArticle}>
                     <h2 className={styles.regionArticleTitle}>
-                        {intl.formatMessage({ id: "homePage.regionArticle.title", defaultMessage: messagesJson["homePage.regionArticle.title"].en })}
+                        {intl.formatMessage({ id: "homePage.regionArticle.title" })}
                     </h2>
 
                     <Link className={styles.articleCard} to={articleLink}>
                         <div className={styles.cardContent}>
-                            <h3 className={styles.cardTitle}>{intl.formatMessage({ id: titleId, defaultMessage: messagesJson[titleId].en })}</h3>
+                            <h3 className={styles.cardTitle}>{intl.formatMessage({ id: titleId })}</h3>
                             <p className={styles.cardDescription}>
-                                {intl.formatMessage({ id: descriptionId, defaultMessage: messagesJson[descriptionId].en })}
+                                {intl.formatMessage({ id: descriptionId })}
                             </p>
                             <span className={styles.cardRead}>
-                                {intl.formatMessage({ id: "homePage.article.read", defaultMessage: messagesJson["homePage.article.read"].en })}
+                                {intl.formatMessage({ id: "homePage.article.read" })}
                             </span>
                         </div>
                         <img className={styles.cardImage} src={imageUrl} />
@@ -150,11 +151,11 @@ export const Home: FC = () => {
 
                 <section className={styles.articles}>
                     <h2 className={styles.articlesTitle}>
-                        {intl.formatMessage({ id: "homePage.articles.title", defaultMessage: messagesJson["homePage.articles.title"].en })}
+                        {intl.formatMessage({ id: "homePage.articles.title" })}
                     </h2>
                     {ARTICLES.length > 0 && (
                         <p className={styles.articlesDescription}>
-                            {intl.formatMessage({ id: "homePage.articles.description", defaultMessage: messagesJson["homePage.articles.description"].en }, { count: articlesCount })}
+                            {intl.formatMessage({ id: "homePage.articles.description" }, { count: articlesCount })}
                         </p>
                     )}
                     <div className={styles.articlesList}>
@@ -170,13 +171,13 @@ export const Home: FC = () => {
                                 >
                                     <div className={styles.cardContent}>
                                         <h3 className={styles.cardTitle}>
-                                            {intl.formatMessage({ id: titleId, defaultMessage: messagesJson[titleId].en })}
+                                            {intl.formatMessage({ id: titleId })}
                                         </h3>
                                         <p className={styles.cardDescription}>
-                                            {intl.formatMessage({ id: descriptionId, defaultMessage: messagesJson[descriptionId].en })}
+                                            {intl.formatMessage({ id: descriptionId })}
                                         </p>
                                         <span className={styles.cardRead}>
-                                            {intl.formatMessage({ id: "homePage.article.read", defaultMessage: messagesJson["homePage.article.read"].en })}
+                                            {intl.formatMessage({ id: "homePage.article.read" })}
                                         </span>
                                     </div>
                                     <img

@@ -31,7 +31,7 @@ export default tseslint.config(globalIgnores(["dist"]), {
         ],
         "simple-import-sort/imports": "error",
         "simple-import-sort/exports": "error",
-        "formatjs/enforce-default-message": "error",
+        "formatjs/enforce-default-message": "off",
         "formatjs/enforce-placeholders": "error",
         "formatjs/enforce-plural-rules": "error",
         "formatjs/enforce-id": "error",

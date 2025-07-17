@@ -1,4 +1,3 @@
-import messagesJson from "@root/translations.json";
 import type { FC, PropsWithChildren } from "react";
 import { useIntl } from "react-intl";
 import { Link, useLocation } from "react-router-dom";
@@ -48,9 +47,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
                 <span className={styles.footerText}>
                     {intl.formatMessage(
                         {
-                            id: "layout.footer.copyright",
-                            defaultMessage:
-                                messagesJson["layout.footer.copyright"].en,
+                            id: "layout.footer.copyright"
                         },
                         {
                             yearStart: "2024",

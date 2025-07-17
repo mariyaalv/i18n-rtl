@@ -1,4 +1,3 @@
-import messagesJson from "@root/translations.json";
 import cn from "classnames";
 import { type FC } from "react";
 import { useIntl } from "react-intl";
@@ -23,15 +22,15 @@ export const ArticleRtlIcons: FC = () => {
     return (
         <Layout>
             <main className={styles.article}>
-                <h1>{intl.formatMessage({ id: "articleRtlIcons.title", defaultMessage: messagesJson["articleRtlIcons.title"].en }, { br: <br /> })}</h1>
-                <p>{intl.formatMessage({ id: "articleRtlIcons.intro", defaultMessage: messagesJson["articleRtlIcons.intro"].en })}</p>
+                <h1>{intl.formatMessage({ id: "articleRtlIcons.title" }, { br: <br /> })}</h1>
+                <p>{intl.formatMessage({ id: "articleRtlIcons.intro" })}</p>
                 <section className={styles.section}>
-                    <h2>{intl.formatMessage({ id: "articleRtlIcons.whyImportant.title", defaultMessage: messagesJson["articleRtlIcons.whyImportant.title"].en })}</h2>
-                    <p>{intl.formatMessage({ id: "articleRtlIcons.whyImportant.text", defaultMessage: messagesJson["articleRtlIcons.whyImportant.text"].en })}</p>
+                    <h2>{intl.formatMessage({ id: "articleRtlIcons.whyImportant.title" })}</h2>
+                    <p>{intl.formatMessage({ id: "articleRtlIcons.whyImportant.text" })}</p>
                 </section>
                 <section className={styles.section}>
-                    <h2>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.title", defaultMessage: messagesJson["articleRtlIcons.flipIcons.title"].en })}</h2>
-                    <p>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.text", defaultMessage: messagesJson["articleRtlIcons.flipIcons.text"].en })}</p>
+                    <h2>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.title" })}</h2>
+                    <p>{intl.formatMessage({ id: "articleRtlIcons.flipIcons.text" })}</p>
                     <div className={cn(styles.icons)} data-testid="rtl-icons">
                       <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
                         <PaperNoteIcon />
@@ -45,8 +44,8 @@ export const ArticleRtlIcons: FC = () => {
                     </div>
                 </section>
                 <section className={styles.section}>
-                    <h2>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.title", defaultMessage: messagesJson["articleRtlIcons.dontFlipIcons.title"].en })}</h2>
-                    <p>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.text", defaultMessage: messagesJson["articleRtlIcons.dontFlipIcons.text"].en })}</p>
+                    <h2>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.title" })}</h2>
+                    <p>{intl.formatMessage({ id: "articleRtlIcons.dontFlipIcons.text" })}</p>
                     <div className={cn(styles.icons)} data-testid="not-rtl-icons">
                         <span className={styles.rtlIconWrapper} style={isRtl ? { transform: "scaleX(-1)", display: "inline-block" } : { display: "inline-block" }}>
                             <GamepadIcon />
@@ -60,9 +59,9 @@ export const ArticleRtlIcons: FC = () => {
                     </div>
                 </section>
                 <section className={styles.section}>
-                    <h2>{intl.formatMessage({ id: "articleRtlIcons.conclusion.title", defaultMessage: messagesJson["articleRtlIcons.conclusion.title"].en })}</h2>
-                    <p>{intl.formatMessage({ id: "articleRtlIcons.conclusion.text1", defaultMessage: messagesJson["articleRtlIcons.conclusion.text1"].en })}</p>
-                    <p dangerouslySetInnerHTML={{ __html: intl.formatMessage({ id: "articleRtlIcons.conclusion.text2", defaultMessage: messagesJson["articleRtlIcons.conclusion.text2"].en }) }} />
+                    <h2>{intl.formatMessage({ id: "articleRtlIcons.conclusion.title" })}</h2>
+                    <p>{intl.formatMessage({ id: "articleRtlIcons.conclusion.text1" })}</p>
+                    <p dangerouslySetInnerHTML={{ __html: intl.formatMessage({ id: "articleRtlIcons.conclusion.text2" }) }} />
                 </section>
             </main>
         </Layout>
