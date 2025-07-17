@@ -28,6 +28,7 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
 
     useEffect(() => {
       document.documentElement.dir = LANG_DIRECTION[lang] || "ltr";
+      document.documentElement.lang = lang;
     }, [lang]);
 
     const messages = useAsyncMessages(lang);
