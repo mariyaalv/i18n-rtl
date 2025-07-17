@@ -1,4 +1,5 @@
 import type { FC, PropsWithChildren } from "react";
+import { useEffect } from "react";
 import { useIntl } from "react-intl";
 import { Link, useLocation } from "react-router-dom";
 
@@ -13,6 +14,10 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     const { pathname } = useLocation();
     const lang = detectUserLanguage(pathname);
     const intl = useIntl();
+
+    useEffect(() => {
+        document.title = BRAND_NAMES[lang];
+    }, [lang]);
 
     return (
         <>
