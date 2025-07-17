@@ -16,31 +16,31 @@ const ScrollToTop: FC = () => {
     return null;
 };
 
-const DetectLocaleRedirect: FC = () => {
-    const targetLocale = detectUserLanguage(window.location.pathname);
-    return <Navigate to={`/${targetLocale}/`} replace />;
-};
-
 function App() {
+    const targetLocale = detectUserLanguage(window.location.pathname);
     return (
         <BrowserRouter>
             <LocaleProviderWrapper>
                 <ScrollToTop />
                 <Routes>
-                    <Route path="/" element={<DetectLocaleRedirect />} />
+                    <Route
+                        path="/"
+                        element={<Navigate to={`/${targetLocale}/`} replace />}
+                    />
                     <Route path=":locale">
                         <Route index element={<Home />} />
-                        <Route path="article">
-                            <Route path="rtl-icons" element={<ArticleRtlIcons />} />
-                            <Route path="css" element={<ArticleCss />} />
-                            <Route path="l10n-ru" element={<ArticleL10nRu />} />
-                            <Route path="ui-by" element={<ArticleUiBy />} />
-                            <Route path="i18n-kz" element={<ArticleI18nKz />} />
-                            <Route path="en" element={<ArticleEn />} />
-                            <Route path="ar" element={<ArticleAr />} />
-                        </Route>
-                        <Route path="*" element={<Navigate to={`/${DEFAULT_LOCALE}/`} replace />} />
+                        <Route path="article/rtl-icons" element={<ArticleRtlIcons />} />
+                        <Route path="article/css" element={<ArticleCss />} />
+                        <Route path="article/l10n-ru" element={<ArticleL10nRu />} />
+                        <Route path="article/ui-by" element={<ArticleUiBy />} />
+                        <Route path="article/i18n-kz" element={<ArticleI18nKz />} />
+                        <Route path="article/en" element={<ArticleEn />} />
+                        <Route path="article/ar" element={<ArticleAr />} />
                     </Route>
+                    <Route
+                        path="*"
+                        element={<Navigate to={`/${DEFAULT_LOCALE}/`} replace />}
+                    />
                 </Routes>
             </LocaleProviderWrapper>
         </BrowserRouter>

@@ -1,6 +1,4 @@
-import Cookies from "js-cookie";
-
-import { DEFAULT_LANG, LANG_COOKIE_NAME, SUPPORTED_LANGS } from "@/constants";
+import { DEFAULT_LANG, SUPPORTED_LANGS } from "@/constants";
 import type { Lang } from "@/types";
 
 const getLocaleFromPathname = (pathname: string): Lang => {
@@ -11,12 +9,17 @@ const getLocaleFromPathname = (pathname: string): Lang => {
         : DEFAULT_LANG;
 };
 
-const getLanguageFromCookie = (): Lang | null => {
-    const cookieLang = Cookies.get(LANG_COOKIE_NAME);
-    return cookieLang && SUPPORTED_LANGS.includes(cookieLang as Lang)
-        ? (cookieLang as Lang)
-        : null;
-};
+export function getLocaleFromCookie(): Lang | null {
+    const match = document.cookie.match(/i18n-l10n-conf-lang=([^;]+)/);
+    if (match && SUPPORTED_LANGS.includes(match[1] as Lang)) {
+        return match[1] as Lang;
+    }
+    return null;
+}
+
+export function setLocaleCookie(lang: Lang) {
+    document.cookie = `i18n-l10n-conf-lang=${lang}; path=/; max-age=31536000`;
+}
 
 const getLanguageFromBrowser = (): Lang | null => {
     const navigatorLang = navigator.language.split("-")[0] as Lang;
@@ -26,7 +29,7 @@ const getLanguageFromBrowser = (): Lang | null => {
 export const detectUserLanguage = (pathname: string): Lang => {
     return (
         getLocaleFromPathname(pathname) ||
-        getLanguageFromCookie() ||
+        getLocaleFromCookie() ||
         getLanguageFromBrowser() ||
         DEFAULT_LANG
     );

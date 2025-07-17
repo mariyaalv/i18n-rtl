@@ -79,11 +79,9 @@ export const LangSelect: FC = () => {
                         const langUrl = getLanguageUrl(lang);
 
                         return (
-                            <Link to={langUrl}>
+                            <Link to={langUrl} onClick={() => handleLanguageSelect(lang)} key={lang}>
                                 <li
                                     className={styles.langSelectMenuItem}
-                                    key={lang}
-                                    onClick={() => handleLanguageSelect(lang)}
                                 >
                                     <span
                                         className={
