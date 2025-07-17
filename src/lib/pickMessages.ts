@@ -1,14 +1,12 @@
-import translations from "@root/translations.json";
-
 import type { TranslationKey } from "@/page-translation-keys";
-import type { Lang } from "@/types";
 
-export function pickMessages(keys: TranslationKey[], lang: Lang) {
+export function pickMessages(
+  keys: TranslationKey[],
+  messages: Record<string, string>
+) {
   const result: Record<string, string> = {};
   for (const key of keys) {
-    if (translations[key]) {
-      result[key] = translations[key][lang] || translations[key]["en"] || key;
-    }
+    result[key] = messages[key] ?? key;
   }
   return result;
 }

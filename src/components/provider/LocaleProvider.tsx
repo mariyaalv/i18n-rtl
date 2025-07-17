@@ -1,9 +1,10 @@
-import { type FC, type ReactNode, useEffect, useMemo } from "react";
+import { type FC, type ReactNode, useEffect } from "react";
 import { IntlProvider } from "react-intl";
 import { useLocation } from "react-router-dom";
 
 import { LANG_DIRECTION } from "@/constants";
 import { detectUserLanguage, pickMessages } from "@/lib";
+import { useAsyncMessages } from "@/lib/useAsyncMessages";
 import type { TranslationKey } from "@/page-translation-keys";
 import type { Lang, Locale } from "@/types";
 
@@ -29,24 +30,17 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
       document.documentElement.dir = LANG_DIRECTION[lang] || "ltr";
     }, [lang]);
 
-    const messages = useMemo(() => {
-      return pickMessages(translationKeys, lang);
-    }, [lang, translationKeys]);
+    const messages = useAsyncMessages(lang);
 
-    const isLoaded = translationKeys.every(key => messages[key]);
-
-    if (!isLoaded) {
+    if (!messages) {
       return <Loader />;
     }
-
-     console.log('LocaleProvider:', { lang, translationKeys, messages });
-
 
     return (
         <IntlProvider
             key={lang}
             locale={lang}
-            messages={messages}
+            messages={pickMessages(translationKeys, messages)}
             defaultLocale={defaultLocale}
         >
             {children}

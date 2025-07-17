@@ -86,8 +86,6 @@ const formatPrice = (amount: number, locale: string) => {
 
 export const Home: FC = () => {
     const intl = useIntl();
-   console.log('Home locale:', intl.locale);
-   console.log('Home messages:', intl.messages);
     const currentLocale = intl.locale as Locale;
     const { titleId, descriptionId, imageUrl, articleLink } = getRegionArticleByLocale(currentLocale);
     const year = "2025";
