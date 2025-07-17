@@ -72,11 +72,25 @@ const getRegionArticleByLocale = (locale: Locale) => {
     }
 };
 
+const formatPrice = (amount: number, locale: string) => {
+    const localeForFormatting =
+        locale === "ru" ? "ru-RU" : locale === "ar" ? "ar-SA" : "en-US";
+
+    return new Intl.NumberFormat(localeForFormatting, {
+        style: "currency",
+        currency: "RUB",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+        numberingSystem: "latn",
+    }).format(amount);
+};
+
 export const Home: FC = () => {
     const intl = useIntl();
     const { titleId, descriptionId, imageUrl, articleLink } = getRegionArticleByLocale("ru");
     const year = "2025";
-    const price = "35 000,00 ₽";
+    const currentLocale = intl.locale;
+    const price = formatPrice(35000, currentLocale);
     const articlesCount = ARTICLES.length;
 
     return (
@@ -103,7 +117,10 @@ export const Home: FC = () => {
                             {intl.formatMessage({ id: "homePage.hero.location", defaultMessage: messagesJson["homePage.hero.location"].en })}
                         </span>
                         <span className={styles.heroDetailsItem}>
-                            {intl.formatMessage({ id: "homePage.hero.price", defaultMessage: messagesJson["homePage.hero.price"].en }, { price })}
+                          {intl.formatMessage(
+                            { id: "homePage.hero.price", defaultMessage: messagesJson["homePage.hero.price"].en },
+                            { price }
+                            )}
                         </span>
                     </div>
 
