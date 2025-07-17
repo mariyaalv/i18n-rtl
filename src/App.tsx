@@ -1,11 +1,10 @@
 import { type FC, useEffect } from "react";
-import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 
-import { PAGE_TRANSLATION_KEYS } from "@/page-translation-keys";
+import { LocaleProviderWrapper } from "@/components/provider/LocaleProviderWrapper";
+import { DEFAULT_LOCALE } from "@/constants";
+import { detectUserLanguage } from "@/lib";
 
-import { LocaleProvider } from "./components";
-import { DEFAULT_LOCALE, SUPPORTED_LANGS, SUPPORTED_LOCALES } from "./constants";
-import { detectUserLanguage } from "./lib";
 import {
     ArticleAr, ArticleCss, ArticleEn, ArticleI18nKz, ArticleL10nRu,
     ArticleRtlIcons, ArticleUiBy, Home
@@ -17,52 +16,9 @@ const ScrollToTop: FC = () => {
     return null;
 };
 
-const RedirectToLocale: FC = () => {
-    const navigate = useNavigate();
-    const { pathname } = useLocation();
-    useEffect(() => {
-        if (pathname === "/") {
-            const lang = detectUserLanguage(pathname);
-            navigate(`/${lang}`, { replace: true });
-        }
-    }, [pathname, navigate]);
-    return null;
-};
-
-function getTranslationKeys(pathname: string) {
-  if (/^\/[^/]+\/article\/rtl-icons/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleRtlIcons;
-  if (/^\/[^/]+\/article\/css/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleCss;
-  if (/^\/[^/]+\/article\/l10n-ru/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleL10nRu;
-  if (/^\/[^/]+\/article\/ui-by/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleUiBy;
-  if (/^\/[^/]+\/article\/i18n-kz/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleI18nKz;
-  if (/^\/[^/]+\/article\/en/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleEn;
-  if (/^\/[^/]+\/article\/ar/.test(pathname)) return PAGE_TRANSLATION_KEYS.articleAr;
-  return PAGE_TRANSLATION_KEYS.homePage;
-}
-
-const LocaleProviderWrapper: FC<{children: React.ReactNode}> = ({ children }) => {
-  const { pathname } = useLocation();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const pathLocale = pathname.split("/")[1];
-    const lang = pathLocale?.split("-")[0] as typeof SUPPORTED_LANGS[number];
-    if (
-      pathLocale &&
-      !SUPPORTED_LOCALES.includes(pathLocale as typeof SUPPORTED_LOCALES[number]) &&
-      SUPPORTED_LANGS.includes(lang)
-    ) {
-      navigate(`/${lang}`, { replace: true });
-    }
-  }, [pathname, navigate]);
-
-  const initialLang = detectUserLanguage(pathname);
-  const translationKeys = getTranslationKeys(pathname);
-  return (
-    <LocaleProvider initialLocale={initialLang} translationKeys={translationKeys}>
-      {children}
-    </LocaleProvider>
-  );
+const DetectLocaleRedirect: FC = () => {
+    const targetLocale = detectUserLanguage(window.location.pathname);
+    return <Navigate to={`/${targetLocale}/`} replace />;
 };
 
 function App() {
@@ -71,7 +27,7 @@ function App() {
             <LocaleProviderWrapper>
                 <ScrollToTop />
                 <Routes>
-                    <Route path="/" element={<RedirectToLocale />} />
+                    <Route path="/" element={<DetectLocaleRedirect />} />
                     <Route path=":locale">
                         <Route index element={<Home />} />
                         <Route path="article">
