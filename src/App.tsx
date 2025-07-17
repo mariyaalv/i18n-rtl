@@ -4,7 +4,7 @@ import { BrowserRouter, Navigate, Route, Routes, useLocation, useNavigate } from
 import { PAGE_TRANSLATION_KEYS } from "@/page-translation-keys";
 
 import { LocaleProvider } from "./components";
-import { DEFAULT_LOCALE } from "./constants";
+import { DEFAULT_LOCALE, SUPPORTED_LANGS, SUPPORTED_LOCALES } from "./constants";
 import { detectUserLanguage } from "./lib";
 import {
     ArticleAr, ArticleCss, ArticleEn, ArticleI18nKz, ArticleL10nRu,
@@ -42,6 +42,20 @@ function getTranslationKeys(pathname: string) {
 
 const LocaleProviderWrapper: FC<{children: React.ReactNode}> = ({ children }) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const pathLocale = pathname.split("/")[1];
+    const lang = pathLocale?.split("-")[0] as typeof SUPPORTED_LANGS[number];
+    if (
+      pathLocale &&
+      !SUPPORTED_LOCALES.includes(pathLocale as typeof SUPPORTED_LOCALES[number]) &&
+      SUPPORTED_LANGS.includes(lang)
+    ) {
+      navigate(`/${lang}`, { replace: true });
+    }
+  }, [pathname, navigate]);
+
   const initialLang = detectUserLanguage(pathname);
   const translationKeys = getTranslationKeys(pathname);
   return (
