@@ -1,31 +1,20 @@
+import messagesJson from "@root/translations.json";
 import { type FC } from "react";
+import { useIntl } from "react-intl";
 
 import { Layout } from "@/components";
 
 import styles from "./styles.module.css";
 
-export const ArticleL10nRu: FC = () => (
-    <Layout>
-        <main className={styles.article}>
-            <h1>
-                Как адаптировать веб-приложение под российских пользователей:
-                нюансы локализации
-            </h1>
-
-            <p>
-                Российская аудитория — одна из крупнейших в Восточной Европе, с
-                более чем 98 000 000 интернет-пользователей. При этом около 78 %
-                предпочитают сайты на русском языке. При локализации важно
-                учитывать форматы чисел (например, десятичный разделитель —
-                запятая), валют и дат.
-            </p>
-
-            <p>
-                Также стоит обращать внимание на юридические аспекты: закон о
-                персональных данных требует хранения информации на серверах
-                внутри страны. Многие компании перешли на соответствие этому
-                требованию ещё с 1 сентября 2015 г.
-            </p>
-        </main>
-    </Layout>
-);
+export const ArticleL10nRu: FC = () => {
+    const intl = useIntl();
+    return (
+        <Layout>
+            <main className={styles.article}>
+                <h1>{intl.formatMessage({ id: "articleL10nRu.title", defaultMessage: messagesJson["articleL10nRu.title"].en })}</h1>
+                <p>{intl.formatMessage({ id: "articleL10nRu.text1", defaultMessage: messagesJson["articleL10nRu.text1"].en }, { usersCount: "98 000 000", percent: "78 %" })}</p>
+                <p>{intl.formatMessage({ id: "articleL10nRu.text2", defaultMessage: messagesJson["articleL10nRu.text2"].en }, { date: "1 сентября 2015 г." })}</p>
+            </main>
+        </Layout>
+    );
+};

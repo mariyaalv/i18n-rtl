@@ -1,92 +1,29 @@
+import messagesJson from "@root/translations.json";
 import { type FC } from "react";
+import { useIntl } from "react-intl";
 
 import { Layout } from "@/components";
 
 import styles from "./styles.module.css";
 
-export const ArticleCss: FC = () => (
-    <Layout>
-        <main className={styles.article}>
-            <h1>
-                Использование логических CSS-свойств для
-                интернационализированных интерфейсов
-            </h1>
-
-            <p>
-                В последние годы всё больше внимания уделяется созданию
-                по-настоящему глобальных веб-продуктов. Особенно это актуально
-                для проектов, чья аудитория распределена по всему миру. При
-                разработке интерфейсов на таких языках, как арабский, где текст
-                и направление верстки идут справа налево (RTL), важно, чтобы
-                визуальное поведение компонентов оставалось интуитивным. Одним
-                из ключевых инструментов для этого являются логические
-                CSS-свойства.
-            </p>
-
-            <p>
-                В отличие от физических свойств (например,{" "}
-                <code>margin-left</code>, <code>padding-right</code>,{" "}
-                <code>border-top</code>), логические свойства (
-                <code>margin-inline-start</code>, <code>padding-block-end</code>
-                , <code>border-inline</code>) описывают поведение относительно
-                направления письма, а не фиксированного направления экрана. Это
-                особенно важно в проектах, где контент может быть как на
-                английском, так и на арабском, китайском, русском и других
-                языках с различной направленностью.
-            </p>
-
-            <section className={styles.section}>
-                <h2>Почему это важно для i18n-фронтенда</h2>
-
-                <p>
-                    Использование логических свойств делает код более адаптивным
-                    и уменьшает потребность в условных стилях или дублировании
-                    CSS. Это также упрощает поддержку, особенно в многоязычных
-                    продуктах, где переключение между LTR и RTL должно быть
-                    максимально бесшовным.
-                </p>
-
-                <p>
-                    Вот несколько преимуществ, которые дают логические свойства
-                    в контексте интернационализации:
-                </p>
-
-                <ul className={styles.list}>
-                    <li>
-                        Универсальность: один набор стилей подходит для всех
-                        направлений письма.
-                    </li>
-                    <li>
-                        Простота поддержки: меньше кода, меньше ошибок при
-                        внесении изменений.
-                    </li>
-                    <li>
-                        Гибкость: легко добавлять новые языки, не меняя
-                        структуру стилей.
-                    </li>
-                    <li>
-                        Последовательность: одинаковое визуальное поведение для
-                        всех пользователей, независимо от языка.
-                    </li>
-                    <li>
-                        Актуальность: соответствие современным стандартам CSS и
-                        лучшим практикам UI-дизайна.
-                    </li>
-                </ul>
-            </section>
-
-            <section className={styles.section}>
-                <h2>Заключение</h2>
-
-                <p>
-                    Использование логических CSS-свойств — это простой и
-                    эффективный способ сделать интерфейсы по-настоящему
-                    адаптивными и ориентированными на глобальную аудиторию.
-                    Такой подход позволяет учитывать языковые и культурные
-                    особенности без необходимости в усложнении кода или
-                    дублировании стилей.
-                </p>
-            </section>
-        </main>
-    </Layout>
-);
+export const ArticleCss: FC = () => {
+    const intl = useIntl();
+    return (
+        <Layout>
+            <main className={styles.article}>
+                <h1>{intl.formatMessage({ id: "articleCss.title", defaultMessage: messagesJson["articleCss.title"].en })}</h1>
+                <p>{intl.formatMessage({ id: "articleCss.intro", defaultMessage: messagesJson["articleCss.intro"].en })}</p>
+                <p>{intl.formatMessage({ id: "articleCss.diff", defaultMessage: messagesJson["articleCss.diff"].en })}</p>
+                <section className={styles.section}>
+                    <h2>{intl.formatMessage({ id: "articleCss.whyImportant.title", defaultMessage: messagesJson["articleCss.whyImportant.title"].en })}</h2>
+                    <p>{intl.formatMessage({ id: "articleCss.whyImportant.text", defaultMessage: messagesJson["articleCss.whyImportant.text"].en })}</p>
+                    <div dangerouslySetInnerHTML={{ __html: intl.formatMessage({ id: "articleCss.whyImportant.list", defaultMessage: messagesJson["articleCss.whyImportant.list"].en }) }} />
+                </section>
+                <section className={styles.section}>
+                    <h2>{intl.formatMessage({ id: "articleCss.conclusion.title", defaultMessage: messagesJson["articleCss.conclusion.title"].en })}</h2>
+                    <p>{intl.formatMessage({ id: "articleCss.conclusion.text", defaultMessage: messagesJson["articleCss.conclusion.text"].en })}</p>
+                </section>
+            </main>
+        </Layout>
+    );
+};

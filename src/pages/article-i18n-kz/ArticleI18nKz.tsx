@@ -1,21 +1,19 @@
+import messagesJson from "@root/translations.json";
 import { type FC } from "react";
+import { useIntl } from "react-intl";
 
 import { Layout } from "@/components";
 
 import styles from "./styles.module.css";
 
-export const ArticleI18nKz: FC = () => (
-    <Layout>
-        <main className={styles.article}>
-            <h1>Русский и казахский: эффективная локализация для Казахстана</h1>
-
-            <p>
-                Казахстан — уникальный рынок, где используются сразу два языка:
-                русский и казахский. Причём казахский может быть как на
-                кириллице, так и на латинице. Мы рассказываем, как обеспечить
-                корректную поддержку обоих языков, с учётом форматов дат,
-                переводов, и переключения языка в интерфейсе.
-            </p>
-        </main>
-    </Layout>
-);
+export const ArticleI18nKz: FC = () => {
+    const intl = useIntl();
+    return (
+        <Layout>
+            <main className={styles.article}>
+                <h1>{intl.formatMessage({ id: "articleI18nKz.title", defaultMessage: messagesJson["articleI18nKz.title"].en })}</h1>
+                <p>{intl.formatMessage({ id: "articleI18nKz.text", defaultMessage: messagesJson["articleI18nKz.text"].en })}</p>
+            </main>
+        </Layout>
+    );
+};

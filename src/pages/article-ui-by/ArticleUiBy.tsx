@@ -1,25 +1,19 @@
+import messagesJson from "@root/translations.json";
 import { type FC } from "react";
+import { useIntl } from "react-intl";
 
 import { Layout } from "@/components";
 
 import styles from "./styles.module.css";
 
-export const ArticleUiBy: FC = () => (
-    <Layout>
-        <main className={styles.article}>
-            <h1>
-                Двухъязычный интерфейс: как учесть русский и белорусский языки в
-                одном продукте
-            </h1>
-
-            <p>
-                Создание интерфейса для Беларуси — это вызов двуязычия. Продукт
-                должен быть понятен и русскоязычным, и белорусскоязычным
-                пользователям. Мы рассматриваем, как организовать структуру
-                переводов, какие существуют UX-решения для переключения языка и
-                почему важно уделять внимание аутентичности белорусского
-                контента.
-            </p>
-        </main>
-    </Layout>
-);
+export const ArticleUiBy: FC = () => {
+    const intl = useIntl();
+    return (
+        <Layout>
+            <main className={styles.article}>
+                <h1>{intl.formatMessage({ id: "articleUiBy.title", defaultMessage: messagesJson["articleUiBy.title"].en })}</h1>
+                <p>{intl.formatMessage({ id: "articleUiBy.text", defaultMessage: messagesJson["articleUiBy.text"].en })}</p>
+            </main>
+        </Layout>
+    );
+};

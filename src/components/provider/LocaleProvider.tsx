@@ -22,13 +22,17 @@ export const LocaleProvider: FC<LocaleProviderProps> = ({
 
     const messages = useMemo(() => {
         return Object.entries(translations).reduce(
-            (acc, [key, value]) => ({ ...acc, [key]: value[key as Lang] }),
+            (acc, [key, value]) => ({
+                ...acc,
+                [key]: value[lang] || value["en"]
+            }),
             {} as Record<string, string>
         );
-    }, []);
+    }, [lang]);
 
     return (
         <IntlProvider
+            key={lang}
             locale={lang}
             messages={messages}
             defaultLocale={defaultLocale}

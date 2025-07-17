@@ -1,24 +1,19 @@
+import messagesJson from "@root/translations.json";
 import { type FC } from "react";
+import { useIntl } from "react-intl";
 
 import { Layout } from "@/components";
 
 import styles from "./styles.module.css";
 
-export const ArticleAr: FC = () => (
-    <Layout>
-        <main className={styles.article}>
-            <h1>
-                Локализация для арабоязычного мира: RTL, форматы и культурные
-                коды
-            </h1>
-
-            <p>
-                Интерфейсы на арабском языке требуют переосмысления привычного
-                порядка элементов: направление письма меняется на RTL. В статье
-                мы объясняем, как грамотно адаптировать верстку, типографику и
-                иконки, чтобы интерфейс выглядел естественно для арабоязычных
-                пользователей, и при этом оставался универсальным.
-            </p>
-        </main>
-    </Layout>
-);
+export const ArticleAr: FC = () => {
+    const intl = useIntl();
+    return (
+        <Layout>
+            <main className={styles.article}>
+                <h1>{intl.formatMessage({ id: "articleAr.title", defaultMessage: messagesJson["articleAr.title"].en })}</h1>
+                <p>{intl.formatMessage({ id: "articleAr.text", defaultMessage: messagesJson["articleAr.text"].en })}</p>
+            </main>
+        </Layout>
+    );
+};

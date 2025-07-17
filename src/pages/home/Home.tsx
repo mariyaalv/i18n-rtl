@@ -1,4 +1,6 @@
+import messagesJson from "@root/translations.json";
 import { type FC } from "react";
+import { useIntl } from "react-intl";
 import { Link } from "react-router-dom";
 
 import articleAr from "@/assets/article-ar.jpg";
@@ -15,16 +17,14 @@ import styles from "./styles.module.css";
 
 const ARTICLES = [
     {
-        title: "Какие иконки нужно разворачивать для RTL, а какие — нет?",
-        description:
-            "Не все иконки требуют зеркального отражения при переключении на RTL-языки. Разбираемся, какие иконки зависят от направления текста, а какие — универсальны",
+        titleId: "homePage.rtlArticle.title",
+        descriptionId: "homePage.rtlArticle.description",
         imageUrl: articleRtlIcons,
         articleLink: "article/rtl-icons",
     },
     {
-        title: "Логические CSS-свойства в интерфейсах с поддержкой i18n",
-        description:
-            "Узнайте, как логические CSS-свойства помогают создавать адаптивные интерфейсы для разных языков и направлений письма — без усложнения кода и дублирования стилей.",
+        titleId: "homePage.cssArticle.title",
+        descriptionId: "homePage.cssArticle.description",
         imageUrl: articleCss,
         articleLink: "article/css",
     },
@@ -35,46 +35,37 @@ const getRegionArticleByLocale = (locale: Locale) => {
         case "ru":
         case "ru-RU":
             return {
-                title: "Как адаптировать веб-приложение под российских пользователей: нюансы локализации",
-                description:
-                    "Изучаем предпочтения русскоязычных пользователей, числовые и валютные форматы, перевод интерфейса и юридические аспекты (например, закон о персональных данных)",
+                titleId: "homePage.ruArticle.title",
+                descriptionId: "homePage.ruArticle.description",
                 imageUrl: articleL10nRu,
                 articleLink: "article/l10n-ru",
             };
-
         case "ru-BY":
             return {
-                title: "Двухъязычный интерфейс: как учесть русский и белорусский языки в одном продукте",
-                description:
-                    "Рассматриваем подходы к реализации двуязычного интерфейса, стандарты перевода и культурные отличия. Особое внимание — контенту на белорусском языке",
+                titleId: "homePage.byArticle.title",
+                descriptionId: "homePage.byArticle.description",
                 imageUrl: articleUiBy,
                 articleLink: "article/ui-by",
             };
-
         case "ru-KZ":
             return {
-                title: "Русский и казахский: эффективная локализация для Казахстана",
-                description:
-                    "Разбираем сценарии, когда приложение должно быть доступно сразу на двух языках, и особенности казахской локали (в т.ч. поддержка латиницы и кириллицы, особенности форматов дат)",
+                titleId: "homePage.kzArticle.title",
+                descriptionId: "homePage.kzArticle.description",
                 imageUrl: articleI18nKz,
                 articleLink: "article/i18n-kz",
             };
-
         case "ar":
             return {
-                title: "Локализация для арабоязычного мира: RTL, форматы и культурные коды",
-                description:
-                    "От адаптации интерфейса под направление письма справа налево до выбора правильных формулировок — ключевые аспекты локализации для стран Ближнего Востока и Северной Африки",
+                titleId: "homePage.arArticle.title",
+                descriptionId: "homePage.arArticle.description",
                 imageUrl: articleAr,
                 articleLink: "article/ar",
             };
-
         case "en":
         default:
             return {
-                title: "Проектирование для глобальной аудитории: английский как универсальный язык",
-                description:
-                    "Почему английский часто используется как язык по умолчанию в международных приложениях и как писать интерфейсные тексты, которые будут понятны, культурно нейтральны и удобны для последующей локализации",
+                titleId: "homePage.enArticle.title",
+                descriptionId: "homePage.enArticle.description",
                 imageUrl: articleEn,
                 articleLink: "article/en",
             };
@@ -82,73 +73,72 @@ const getRegionArticleByLocale = (locale: Locale) => {
 };
 
 export const Home: FC = () => {
-    const { title, description, imageUrl, articleLink } =
-        getRegionArticleByLocale("ru");
+    const intl = useIntl();
+    const { titleId, descriptionId, imageUrl, articleLink } = getRegionArticleByLocale("ru");
+    const year = "2025";
+    const price = "35 000,00 ₽";
+    const articlesCount = ARTICLES.length;
 
     return (
         <Layout>
             <main className={styles.content}>
                 <section className={styles.hero}>
                     <h1 className={styles.heroTitle}>
-                        Соединяем цифровые миры на всех языках
+                        {intl.formatMessage({ id: "homePage.hero.title", defaultMessage: messagesJson["homePage.hero.title"].en })}
                     </h1>
 
                     <div className={styles.heroDetails}>
                         <span className={styles.heroDetailsItem}>
-                            Конференция I&L-2025
+                            {intl.formatMessage({ id: "homePage.hero.conference", defaultMessage: messagesJson["homePage.hero.conference"].en }, { year })}
                         </span>
-
                         <span className={styles.heroDetailsItem}>
                             15 августа 2025 г.
                         </span>
-
                         <span className={styles.heroDetailsItem}>
-                            Москва, Россия
+                            {intl.formatMessage({ id: "homePage.hero.location", defaultMessage: messagesJson["homePage.hero.location"].en })}
                         </span>
-
                         <span className={styles.heroDetailsItem}>
-                            35 000,00 ₽ билет
+                            {intl.formatMessage({ id: "homePage.hero.price", defaultMessage: messagesJson["homePage.hero.price"].en }, { price })}
                         </span>
                     </div>
 
                     <a className={styles.heroRegister} href="">
-                        Зарегистрироваться
+                        {intl.formatMessage({ id: "homePage.hero.register", defaultMessage: messagesJson["homePage.hero.register"].en })}
                     </a>
                 </section>
 
                 <section className={styles.regionArticle}>
                     <h2 className={styles.regionArticleTitle}>
-                        Актуально для вашего региона
+                        {intl.formatMessage({ id: "homePage.regionArticle.title", defaultMessage: messagesJson["homePage.regionArticle.title"].en })}
                     </h2>
 
                     <Link className={styles.articleCard} to={articleLink}>
                         <div className={styles.cardContent}>
-                            <h3 className={styles.cardTitle}>{title}</h3>
-
+                            <h3 className={styles.cardTitle}>{intl.formatMessage({ id: titleId, defaultMessage: messagesJson[titleId].en })}</h3>
                             <p className={styles.cardDescription}>
-                                {description}
+                                {intl.formatMessage({ id: descriptionId, defaultMessage: messagesJson[descriptionId].en })}
                             </p>
-
-                            <span className={styles.cardRead}>Читать</span>
+                            <span className={styles.cardRead}>
+                                {intl.formatMessage({ id: "homePage.article.read", defaultMessage: messagesJson["homePage.article.read"].en })}
+                            </span>
                         </div>
-
                         <img className={styles.cardImage} src={imageUrl} />
                     </Link>
                 </section>
 
                 <section className={styles.articles}>
-                    <h2 className={styles.articlesTitle}>Статьи</h2>
-
+                    <h2 className={styles.articlesTitle}>
+                        {intl.formatMessage({ id: "homePage.articles.title", defaultMessage: messagesJson["homePage.articles.title"].en })}
+                    </h2>
                     {ARTICLES.length > 0 && (
                         <p className={styles.articlesDescription}>
-                            Всего {ARTICLES.length} статьи
+                            {intl.formatMessage({ id: "homePage.articles.description", defaultMessage: messagesJson["homePage.articles.description"].en }, { count: articlesCount })}
                         </p>
                     )}
-
                     <div className={styles.articlesList}>
                         {ARTICLES.map(
                             (
-                                { title, description, imageUrl, articleLink },
+                                { titleId, descriptionId, imageUrl, articleLink },
                                 index
                             ) => (
                                 <Link
@@ -158,18 +148,15 @@ export const Home: FC = () => {
                                 >
                                     <div className={styles.cardContent}>
                                         <h3 className={styles.cardTitle}>
-                                            {title}
+                                            {intl.formatMessage({ id: titleId, defaultMessage: messagesJson[titleId].en })}
                                         </h3>
-
                                         <p className={styles.cardDescription}>
-                                            {description}
+                                            {intl.formatMessage({ id: descriptionId, defaultMessage: messagesJson[descriptionId].en })}
                                         </p>
-
                                         <span className={styles.cardRead}>
-                                            Читать
+                                            {intl.formatMessage({ id: "homePage.article.read", defaultMessage: messagesJson["homePage.article.read"].en })}
                                         </span>
                                     </div>
-
                                     <img
                                         className={styles.cardImage}
                                         src={imageUrl}
