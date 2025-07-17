@@ -1,6 +1,7 @@
 import cn from "classnames";
 import { type FC } from "react";
 import { useIntl } from "react-intl";
+import { useLocation } from "react-router-dom";
 
 import { Layout } from "@/components";
 import { LANG_DIRECTION } from "@/constants";
@@ -12,12 +13,15 @@ import {
     PaperNoteIcon,
     WindowIcon,
 } from "@/icons";
+import { detectUserLanguage } from "@/lib";
 
 import styles from "./styles.module.css";
 
 export const ArticleRtlIcons: FC = () => {
     const intl = useIntl();
-    const isRtl = LANG_DIRECTION[intl.locale as keyof typeof LANG_DIRECTION] === "rtl";
+    const { pathname } = useLocation();
+    const lang = detectUserLanguage(pathname);
+    const isRtl = LANG_DIRECTION[lang as keyof typeof LANG_DIRECTION] === "rtl";
 
     return (
     <Layout>

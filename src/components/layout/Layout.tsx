@@ -14,6 +14,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
     const { pathname } = useLocation();
     const lang = detectUserLanguage(pathname);
     const intl = useIntl();
+    const currentLocale = intl.locale;
 
     useEffect(() => {
         document.title = BRAND_NAMES[lang];
@@ -23,7 +24,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
         <>
             <div className={styles.header}>
                 <div className={styles.headerContent}>
-                    <Link className={styles.headerBrand} to="/">
+                    <Link className={styles.headerBrand} to={`/${currentLocale}/`}>
                         <BrandLogoIcon />
 
                         <span className={styles.headerBrandText}>
