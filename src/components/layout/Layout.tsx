@@ -10,25 +10,25 @@ import { detectUserLanguage } from "@/lib";
 import { LangSelect } from "../lang-select";
 import styles from "./styles.module.css";
 
-export const Layout: FC<PropsWithChildren> = ({ children }) => {
+export const Layout: FC<PropsWithChildren> = ({ children: content }) => {
     const { pathname } = useLocation();
-    const lang = detectUserLanguage(pathname);
-    const intl = useIntl();
-    const currentLocale = intl.locale;
+    const userLang = detectUserLanguage(pathname);
+    const intlApi = useIntl();
+    const locale = intlApi.locale;
 
     useEffect(() => {
-        document.title = BRAND_NAMES[lang];
-    }, [lang]);
+        document.title = BRAND_NAMES[userLang];
+    }, [userLang]);
 
     return (
         <>
             <div className={styles.header}>
                 <div className={styles.headerContent}>
-                    <Link className={styles.headerBrand} to={`/${currentLocale}/`}>
+                    <Link className={styles.headerBrand} to={`/${locale}/`}>
                         <BrandLogoIcon />
 
                         <span className={styles.headerBrandText}>
-                            {BRAND_NAMES[lang]}
+                            {BRAND_NAMES[userLang]}
                         </span>
                     </Link>
 
@@ -36,7 +36,7 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
                 </div>
             </div>
 
-            <div className={styles.contentContainer}>{children}</div>
+            <div className={styles.contentContainer}>{content}</div>
 
             <div className={styles.footer}>
                 <div
@@ -51,14 +51,14 @@ export const Layout: FC<PropsWithChildren> = ({ children }) => {
                 </div>
 
                 <span className={styles.footerText}>
-                    {intl.formatMessage(
+                    {intlApi.formatMessage(
                         {
                             id: "layout.footer.copyright"
                         },
                         {
                             yearStart: "2024",
                             yearEnd: "2025",
-                            brand: BRAND_NAMES[lang],
+                            brand: BRAND_NAMES[userLang],
                             link: (chunks) => (
                                 <a className={styles.textLink} href="">
                                     {chunks}

@@ -17,29 +17,29 @@ const LANG_LABEL: Record<Lang, string> = {
 };
 
 export const LangSelect: FC = () => {
-    const [showMenu, setShowMenu] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
     const { pathname, search } = useLocation();
-    const selectedLang = detectUserLanguage(pathname);
+    const currentLang = detectUserLanguage(pathname);
 
-    const handleMenuClose = useCallback(() => {
-        setShowMenu(false);
+    const closeMenu = useCallback(() => {
+        setIsMenuOpen(false);
     }, []);
 
-    const handleLanguageSelect = useCallback(
+    const selectLang = useCallback(
         (lang: Lang) => {
             Cookies.set(LANG_COOKIE_NAME, lang);
-            handleMenuClose();
+            closeMenu();
         },
-        [handleMenuClose]
+        [closeMenu]
     );
 
-    const handleMenuToggle = useCallback(() => {
-        setShowMenu((prevShowMenu) => !prevShowMenu);
+    const toggleMenu = useCallback(() => {
+        setIsMenuOpen((prev) => !prev);
     }, []);
 
-    const langSelectRef = useClickOutside<HTMLDivElement>(handleMenuClose);
+    const menuRef = useClickOutside<HTMLDivElement>(closeMenu);
 
-    const getLanguageUrl = useCallback(
+    const buildLangUrl = useCallback(
         (lang: Lang) => {
             let locale: string;
             if (lang === "ru") {
@@ -56,30 +56,30 @@ export const LangSelect: FC = () => {
     );
 
     return (
-        <div className={styles.langSelect} ref={langSelectRef}>
+        <div className={styles.langSelect} ref={menuRef}>
             <button
                 className={styles.langSelectButton}
-                onClick={handleMenuToggle}
+                onClick={toggleMenu}
                 data-testid="lang-select-button"
             >
                 <span className={styles.langSelectText}>
-                    {LANG_LABEL[selectedLang]}
+                    {LANG_LABEL[currentLang]}
                 </span>
 
                 <EarthIcon />
             </button>
 
-            {showMenu && (
+            {isMenuOpen && (
                 <ul
                     className={styles.langSelectMenu}
                     data-testid="lang-select-menu"
                 >
                     {SUPPORTED_LANGS.map((lang) => {
-                        const langName = LANG_LABEL[lang];
-                        const langUrl = getLanguageUrl(lang);
+                        const langLabel = LANG_LABEL[lang];
+                        const url = buildLangUrl(lang);
 
                         return (
-                            <Link to={langUrl} onClick={() => handleLanguageSelect(lang)} key={lang}>
+                            <Link to={url} onClick={() => selectLang(lang)} key={lang}>
                                 <li
                                     className={styles.langSelectMenuItem}
                                 >
@@ -88,10 +88,10 @@ export const LangSelect: FC = () => {
                                             styles.langSelectMenuItemText
                                         }
                                     >
-                                        {langName}
+                                        {langLabel}
                                     </span>
 
-                                    {lang === selectedLang && <DoneIcon />}
+                                    {lang === currentLang && <DoneIcon />}
                                 </li>
                             </Link>
                         );

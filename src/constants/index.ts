@@ -19,3 +19,5 @@ export const DEFAULT_LOCALE: Locale = "en";
 export const DEFAULT_LANG: Lang = "en";
 
 export const CONFERENCE_DATE = "2025-08-15";
+
+export type { Section } from "./section";
